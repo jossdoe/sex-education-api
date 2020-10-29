@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest",
+    "test": "npx eslint ./src && jest",
     "lint": "npx eslint ./src",
     "fix": "npx eslint --fix ./src"
   },
