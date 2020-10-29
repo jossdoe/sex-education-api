@@ -9,3 +9,5 @@ const CharacterSchema = new Schema({
   personality: String,
   appearances: [String],
 })
+
+module.exports = mongoose.model('Character', CharacterSchema);
