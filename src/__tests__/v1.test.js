@@ -1,16 +1,18 @@
 /* eslint-disable no-undef */
-const createServer = require('../createServer');
 const request = require('supertest');
 
-const app = createServer();
+const createServer = require('../createServer');
 
-test('GET on "/v1/" returns status 200', async () => {
-  const res = await request(app).get('/v1/');
+const app = createServer();
+const route = '/v1/';
+
+test(`GET on ${route} returns status 200`, async () => {
+  const res = await request(app).get(route);
   expect(res.status).toBe(200);
 });
 
-test('GET on "/v1/" returns JSON with UTF-8', async () => {
-  const res = await request(app).get('/v1/');
+test(`GET on ${route} returns JSON with UTF-8`, async () => {
+  const res = await request(app).get(route);
   expect(res.headers['content-type']).toBe('application/json; charset=utf-8');
 });
 
