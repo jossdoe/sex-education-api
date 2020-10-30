@@ -1,0 +1,64 @@
+/* eslint-disable no-undef */
+require('dotenv').config();
+const request = require('supertest');
+const mongoose = require('mongoose');
+const R = require('ramda');
+
+const createServer = require('../createServer');
+const connectDB = require('../dbInit');
+
+const app = createServer();
+const route = '/v1/episodes';
+
+beforeAll(async () => {
+  await connectDB();
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
+test('GET on "/v1/episodes" returns status 200', async () => {
+  const res = await request(app).get(route);
+  expect(res.status).toBe(200);
+});
+
+test('GET on "/v1/episodes" returns JSON with UTF-8', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(res.headers['content-type']).toBe('application/json; charset=utf-8');
+});
+
+test('GET on "/v1/episodes" returns Array', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(R.is(Array, res.body)).toBeTruthy();
+});
+
+test('GET on "/v1/episodes" returns Array of Objects', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(R.is(Object, res.body[0])).toBeTruthy();
+});
+
+test('GET on "/v1/episodes" returns Objects with correct properties', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(res.body[0]).toMatchObject({
+    episode: expect.any(String),
+    name: expect.any(String),
+    synopsis: expect.any(String),
+    airdate: expect.any(String),
+    season: expect.any(String),
+    characters: expect.any(Array),
+  });
+});
+
+test('GET on "/v1/episodes" returns Objects without _id property', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(res.body[0]._id).toBeUndefined();
+});
+
+test('GET on "/v1/episodes" starts with Episode 1 of Season 1', async () => {
+  const res = await request(app).get('/v1/episodes');
+  expect(res.body[0]).toMatchObject({
+    episode: 'Episode 1',
+    season: '1',
+  });
+});

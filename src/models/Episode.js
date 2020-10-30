@@ -6,6 +6,7 @@ const EpisodeSchema = new Schema({
   name: String,
   synopsis: String,
   airdate: Date,
+  season: String,
   characters: [String],
 });
 

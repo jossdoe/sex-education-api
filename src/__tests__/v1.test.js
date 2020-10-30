@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
-const createServer = require('../createServer');
 const request = require('supertest');
+
+const createServer = require('../createServer');
 
 const app = createServer();
 
