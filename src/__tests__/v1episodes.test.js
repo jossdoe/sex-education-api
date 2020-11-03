@@ -42,6 +42,7 @@ describe('Get all episodes', () => {
   test(`GET on '${route}' returns Objects with correct properties`, async () => {
     const res = await request(app).get(route);
     expect(res.body[0]).toMatchObject({
+      id: expect.any(Number),
       episode: expect.any(String),
       name: expect.any(String),
       synopsis: expect.any(String),
