@@ -60,8 +60,7 @@ describe('Get all episodes', () => {
   test(`GET on '${route}' starts with Episode 1 of Season 1`, async () => {
     const res = await request(app).get(route);
     expect(res.body[0]).toMatchObject({
-      episode: 'Episode 1',
-      season: '1',
+      id: 1,
     });
   });
 });
