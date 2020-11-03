@@ -42,6 +42,7 @@ describe('Get all episodes', () => {
   test(`GET on '${route}' returns Objects with correct properties`, async () => {
     const res = await request(app).get(route);
     expect(res.body[0]).toMatchObject({
+      id: expect.any(Number),
       episode: expect.any(String),
       name: expect.any(String),
       synopsis: expect.any(String),
@@ -56,11 +57,22 @@ describe('Get all episodes', () => {
     expect(res.body[0]._id).toBeUndefined();
   });
 
-  test(`GET on '${route}' starts with Episode 1 of Season 1`, async () => {
+  test(`GET on '${route}' starts with id 1`, async () => {
     const res = await request(app).get(route);
     expect(res.body[0]).toMatchObject({
-      episode: 'Episode 1',
-      season: '1',
+      id: 1,
     });
+  });
+
+  test(`GET on '${route}' ends with id 16`, async () => {
+    const res = await request(app).get(route);
+    expect(res.body[res.body.length - 1]).toMatchObject({
+      id: 16,
+    });
+  });
+
+  test(`GET on '${route}' returns exactly 16 episodes`, async () => {
+    const res = await request(app).get(route);
+    expect(res.body.length).toBe(16);
   });
 });
