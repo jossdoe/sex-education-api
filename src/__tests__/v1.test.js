@@ -20,3 +20,11 @@ test('GET on undefined route returns status 404', async () => {
   const res = await request(app).get('/undefined/');
   expect(res.status).toBe(404);
 });
+
+test('GET on undefined route returns Error data in Object', async () => {
+  const res = await request(app).get('/undefined/');
+  expect(res.body).toMatchObject({
+    error: true,
+    code: 404,
+  });
+});
