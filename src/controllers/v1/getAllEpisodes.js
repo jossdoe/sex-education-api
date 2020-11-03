@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const Episode = require('../../models/Episode');
 
 const getAllEpisodes = async (req, res) => {
