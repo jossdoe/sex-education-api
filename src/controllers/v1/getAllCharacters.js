@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const Character = require('../../models/Character');
 
 const getAllCharacters = async (req, res) => {
