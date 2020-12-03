@@ -1,0 +1,13 @@
+version: '2'
+services:
+  node:
+    image: 'node:12'
+    user: 'node'
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - '5000'
+    ports:
+      - '5000:5000'
+    command: 'npm start'
